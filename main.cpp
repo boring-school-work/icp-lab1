@@ -1,8 +1,10 @@
 #include <iostream>
+#include <cmath>
 using namespace std;
 
 
-/* A class that performs multiplication of two complex numbers */
+/* A class for complex numbers that allows addition, multiplication,
+ * subtraction and division operations. */
 class ComplexNumber {
   public:
     ComplexNumber(double real, double imaginary);
@@ -10,6 +12,7 @@ class ComplexNumber {
     ComplexNumber multiply(ComplexNumber& num);
     ComplexNumber addition(ComplexNumber& num);
     ComplexNumber subtraction(ComplexNumber& num);
+    ComplexNumber division(ComplexNumber& num);
     double getReal();
     double getImaginary();
 
@@ -25,9 +28,9 @@ ComplexNumber::ComplexNumber(double real, double imaginary) {
 
 void ComplexNumber::display() {
   if (imaginary > 0) {
-    cout << real << " + " << imaginary << "i" << endl;
+    printf("%.2f + %.2fi\n", real, imaginary);
   } else {
-    cout << real << " - " << -1 * imaginary << "i" << endl;
+    printf("%.2f - %.2fi\n", real, imaginary);
   }
 }
 
@@ -47,7 +50,8 @@ ComplexNumber ComplexNumber::multiply(ComplexNumber& num) {
   /* img * img = real * (-1) */
 
   // operation to consider
-  /* (real + img) * (real + img) = (real * real) + (real * img) + (img * real)  + (img * img * (-1)) */
+  /* (real + img) * (real + img) = (real * real) + (real * img) + 
+   *                                (img * real)  + (img * img * (-1)) */
   
   // group the real number outputs
   double realResult = (this->getReal() * num.getReal()) - (this->getImaginary() * num.getImaginary());
@@ -76,6 +80,22 @@ ComplexNumber ComplexNumber::subtraction(ComplexNumber& num) {
   return ComplexNumber(realResult, ImaginaryResult);
 }
 
+ComplexNumber ComplexNumber::division(ComplexNumber& num) {
+  // operation to consider
+  /* (real1 + img1) / (real2 + img2) = 
+   * [ (real1 * real2) + (img1 * img2) / (real2 * real2) + (img2 * img2) ] +
+   * [ (img1 * real2) - (real1 * img2) / (real2 * real2) + (img2 * img2) ] */
+
+  // real number part -> [ (real1 * real2) + (img1 * img2) / (real2 * real2) + (img2 * img2) ]
+  // imaginary part -> [ (img1 * real2) - (real1 * img2) / (real2 * real2) + (img2 * img2) ]
+  
+  double denominator = pow(num.getReal(), 2) + pow(num.getImaginary(), 2);
+  double realResult = ((this->getReal() * num.getReal()) + (this->getImaginary() * num.getImaginary())) / denominator;
+  double ImaginaryResult = ((this->getImaginary() * num.getReal()) - (this->getReal() * num.getImaginary())) / denominator;
+
+  return ComplexNumber(realResult, ImaginaryResult);
+}
+
 int main() {
   ComplexNumber num1(2, 3);
   ComplexNumber num2(4, 5);
@@ -90,10 +110,15 @@ int main() {
   num3.display();
 
   ComplexNumber num4 = num1.addition(num2);
-  cout << "The result after multiplication: ";
+  cout << "The result after addition: ";
   num4.display();
 
   ComplexNumber num5 = num1.subtraction(num2);
-  cout << "The result after multiplication: ";
+  cout << "The result after subtraction: ";
   num5.display();
+
+  ComplexNumber num6 = num1.division(num2);
+  cout << "The result after division: ";
+  num6.display();
+
 }
