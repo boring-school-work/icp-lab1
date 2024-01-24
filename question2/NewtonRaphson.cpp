@@ -1,12 +1,28 @@
 #include <iostream>
 using namespace std;
 
+/**
+ * A class for calculating the square root of a number using the Newton-Raphson
+ * method.
+ */
 class SquareRootCalculator {
 public:
   double calculateSquareRoot(double number);
 };
 
+/**
+ * Calculates the square root of a number using the Newton-Raphson method.
+ *
+ * @param number The number whose square root is to be calculated
+ * @return The square root of the number
+ */
 double SquareRootCalculator::calculateSquareRoot(double number) {
+
+  if (number < 0) {
+    cout << "Error: cannot calculate square root of negative number" << endl;
+    exit(1);
+  }
+
   double cur_guess = number / 2; // take initial guess as half of number
   double prev_guess = 0;
 

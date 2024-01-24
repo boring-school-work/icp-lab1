@@ -17,15 +17,25 @@ class ComplexNumber {
     double getImaginary();
 
   private:
-    double real;
-    double imaginary;
+    double real; // real part of the complex number
+    double imaginary; // imaginary part of the complex number
 };
 
+
+/**
+ * Constructor for the class ComplexNumber
+ *
+ * @param real The real part of the complex number
+ * @param imaginary The imaginary part of the complex number
+ */
 ComplexNumber::ComplexNumber(double real, double imaginary) {
   this->real = real;
   this->imaginary = imaginary;
 }
 
+/**
+ * Displays the complex number in the form of a + bi or a - bi
+ */
 void ComplexNumber::display() {
   if (imaginary > 0) {
     printf("%.2f + %.2fi\n", real, imaginary);
@@ -34,14 +44,30 @@ void ComplexNumber::display() {
   }
 }
 
+/**
+ * Returns the real part of the complex number
+ *
+ * @return The real part of the complex number
+ */
 double ComplexNumber::getReal() {
   return real;
 }
 
+/**
+ * Returns the imaginary part of the complex number
+ *
+ * @return The imaginary part of the complex number
+ */
 double ComplexNumber::getImaginary() {
   return imaginary;
 }
 
+/**
+ * Multiplies the complex number with another complex number
+ *
+ * @param num The complex number to multiply with
+ * @return The result of the multiplication
+ */
 ComplexNumber ComplexNumber::multiply(ComplexNumber& num) {
   /* Complex number rules */
   /* real * real = real */
@@ -62,6 +88,12 @@ ComplexNumber ComplexNumber::multiply(ComplexNumber& num) {
   return ComplexNumber(realResult, imaginaryResult);
 }
 
+/**
+ * Adds the complex number with another complex number
+ *
+ * @param num The complex number to add with
+ * @return The result of the addition
+ */
 ComplexNumber ComplexNumber::addition(ComplexNumber& num) {
   // operation to consider
   /* (real + img) + (real + img) = (real + real) + (img + img) */
@@ -71,6 +103,12 @@ ComplexNumber ComplexNumber::addition(ComplexNumber& num) {
   return ComplexNumber(realResult, ImaginaryResult);
 }
 
+/**
+ * Subtracts the complex number with another complex number
+ *
+ * @param num The complex number to subtract with
+ * @return The result of the subtraction
+ */
 ComplexNumber ComplexNumber::subtraction(ComplexNumber& num) {
   // operation to consider
   /* (real + img) - (real + img) = (real - real) + (img - img) */
@@ -80,6 +118,12 @@ ComplexNumber ComplexNumber::subtraction(ComplexNumber& num) {
   return ComplexNumber(realResult, ImaginaryResult);
 }
 
+/**
+ * Divides the complex number with another complex number
+ *
+ * @param num The complex number to divide with
+ * @return The result of the division
+ */
 ComplexNumber ComplexNumber::division(ComplexNumber& num) {
   // operation to consider
   /* (real1 + img1) / (real2 + img2) = 
