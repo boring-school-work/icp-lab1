@@ -9,6 +9,7 @@ class ComplexNumber {
     void display();
     ComplexNumber multiply(ComplexNumber& num);
     ComplexNumber addition(ComplexNumber& num);
+    ComplexNumber subtraction(ComplexNumber& num);
     double getReal();
     double getImaginary();
 
@@ -66,6 +67,14 @@ ComplexNumber ComplexNumber::addition(ComplexNumber& num) {
   return ComplexNumber(realResult, ImaginaryResult);
 }
 
+ComplexNumber ComplexNumber::subtraction(ComplexNumber& num) {
+  // operation to consider
+  /* (real + img) - (real + img) = (real - real) + (img - img) */
+  double realResult = this->getReal() - num.getReal();
+  double ImaginaryResult = this->getImaginary() - num.getImaginary();
+
+  return ComplexNumber(realResult, ImaginaryResult);
+}
 
 int main() {
   ComplexNumber num1(2, 3);
@@ -83,4 +92,8 @@ int main() {
   ComplexNumber num4 = num1.addition(num2);
   cout << "The result after multiplication: ";
   num4.display();
+
+  ComplexNumber num5 = num1.subtraction(num2);
+  cout << "The result after multiplication: ";
+  num5.display();
 }
