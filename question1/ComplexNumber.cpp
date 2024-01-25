@@ -1,67 +1,25 @@
+#include "ComplexNumber.h"
 #include <cmath>
 #include <iostream>
 using namespace std;
 
-/* A class for complex numbers that allows addition, multiplication,
- * subtraction and division operations. */
-class ComplexNumber {
-public:
-  ComplexNumber(double real, double imaginary);
-  void display();
-  ComplexNumber multiply(ComplexNumber &num);
-  ComplexNumber addition(ComplexNumber &num);
-  ComplexNumber subtraction(ComplexNumber &num);
-  ComplexNumber division(ComplexNumber &num);
-  double getReal();
-  double getImaginary();
-
-private:
-  double real;      // real part of the complex number
-  double imaginary; // imaginary part of the complex number
-};
-
-/**
- * Constructor for the class ComplexNumber
- *
- * @param real The real part of the complex number
- * @param imaginary The imaginary part of the complex number
- */
-ComplexNumber::ComplexNumber(double real, double imaginary) {
+ComplexNumber::ComplexNumber(double real, double imag) {
   this->real = real;
-  this->imaginary = imaginary;
+  this->imag = imag;
 }
 
-/**
- * Displays the complex number in the form of a + bi or a - bi
- */
 void ComplexNumber::display() {
-  if (imaginary > 0) {
-    printf("%.2f + %.2fi\n", real, imaginary);
+  if (imag > 0) {
+    printf("%.2f + %.2fi\n", real, imag);
   } else {
-    printf("%.2f - %.2fi\n", real, imaginary * -1);
+    printf("%.2f - %.2fi\n", real, imag * -1);
   }
 }
 
-/**
- * Returns the real part of the complex number
- *
- * @return The real part of the complex number
- */
 double ComplexNumber::getReal() { return real; }
 
-/**
- * Returns the imaginary part of the complex number
- *
- * @return The imaginary part of the complex number
- */
-double ComplexNumber::getImaginary() { return imaginary; }
+double ComplexNumber::getImag() { return imag; }
 
-/**
- * Multiplies the complex number with another complex number
- *
- * @param num The complex number to multiply with
- * @return The result of the multiplication
- */
 ComplexNumber ComplexNumber::multiply(ComplexNumber &num) {
   /* Complex number rules */
   /* real * real = real */
@@ -74,52 +32,32 @@ ComplexNumber ComplexNumber::multiply(ComplexNumber &num) {
    *                                (img * real)  + (img * img * (-1)) */
 
   // group the real number outputs
-  double realResult = (this->getReal() * num.getReal()) -
-                      (this->getImaginary() * num.getImaginary());
+  double realResult = (real * num.real) - (imag * num.imag);
 
   // group the imaginary number outputs
-  double imaginaryResult = (this->getReal() * num.getImaginary()) +
-                           (this->getImaginary() * num.getReal());
+  double imaginaryResult = (real * num.imag) + (imag * num.real);
 
   return ComplexNumber(realResult, imaginaryResult);
 }
 
-/**
- * Adds the complex number with another complex number
- *
- * @param num The complex number to add with
- * @return The result of the addition
- */
 ComplexNumber ComplexNumber::addition(ComplexNumber &num) {
   // operation to consider
   /* (real + img) + (real + img) = (real + real) + (img + img) */
-  double realResult = this->getReal() + num.getReal();
-  double ImaginaryResult = this->getImaginary() + num.getImaginary();
+  double realResult = real + num.real;
+  double ImaginaryResult = imag + num.imag;
 
   return ComplexNumber(realResult, ImaginaryResult);
 }
 
-/**
- * Subtracts the complex number with another complex number
- *
- * @param num The complex number to subtract with
- * @return The result of the subtraction
- */
 ComplexNumber ComplexNumber::subtraction(ComplexNumber &num) {
   // operation to consider
   /* (real + img) - (real + img) = (real - real) + (img - img) */
-  double realResult = this->getReal() - num.getReal();
-  double ImaginaryResult = this->getImaginary() - num.getImaginary();
+  double realResult = real - num.real;
+  double ImaginaryResult = imag - num.imag;
 
   return ComplexNumber(realResult, ImaginaryResult);
 }
 
-/**
- * Divides the complex number with another complex number
- *
- * @param num The complex number to divide with
- * @return The result of the division
- */
 ComplexNumber ComplexNumber::division(ComplexNumber &num) {
   // operation to consider
   /* (real1 + img1) / (real2 + img2) =
@@ -130,13 +68,10 @@ ComplexNumber ComplexNumber::division(ComplexNumber &num) {
   // (img2 * img2) ] imaginary part -> [ (img1 * real2) - (real1 * img2) /
   // (real2 * real2) + (img2 * img2) ]
 
-  double denominator = pow(num.getReal(), 2) + pow(num.getImaginary(), 2);
-  double realResult = ((this->getReal() * num.getReal()) +
-                       (this->getImaginary() * num.getImaginary())) /
-                      denominator;
-  double ImaginaryResult = ((this->getImaginary() * num.getReal()) -
-                            (this->getReal() * num.getImaginary())) /
-                           denominator;
+  double denominator = pow(num.real, 2) + pow(num.imag, 2);
+  double realResult = ((real * num.real) + (imag * num.imag)) / denominator;
+  double ImaginaryResult =
+      ((imag * num.real) - (real * num.imag)) / denominator;
 
   return ComplexNumber(realResult, ImaginaryResult);
 }
