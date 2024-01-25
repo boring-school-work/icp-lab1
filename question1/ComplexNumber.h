@@ -13,56 +13,11 @@ public:
    */
   ComplexNumber(double real, double imag);
 
-  /**
-   * Displays the complex number in the form of a + bi or a - bi
-   */
   void display();
 
-  /**
-   * Multiplies the complex number with another complex number
-   *
-   * @param num The complex number to multiply with
-   * @return The result of the multiplication
-   */
-  ComplexNumber multiply(ComplexNumber &num);
-
-  /**
-   * Adds the complex number with another complex number
-   *
-   * @param num The complex number to add with
-   * @return The result of the addition
-   */
-  ComplexNumber addition(ComplexNumber &num);
-
-  /**
-   * Subtracts the complex number with another complex number
-   *
-   * @param num The complex number to subtract with
-   * @return The result of the subtraction
-   */
-  ComplexNumber subtraction(ComplexNumber &num);
-
-  /**
-   * Divides the complex number with another complex number
-   *
-   * @param num The complex number to divide with
-   * @return The result of the division
-   */
-  ComplexNumber division(ComplexNumber &num);
-
-  /**
-   * Returns the real part of the complex number
-   *
-   * @return The real part of the complex number
-   */
-  double getReal();
-
-  /**
-   * Returns the imaginary part of the complex number
-   *
-   * @return The imaginary part of the complex number
-   */
-  double getImag();
+  ComplexNumber operator+(const ComplexNumber &other) {
+    return ComplexNumber(real + other.real, imag + other.imag);
+  }
 
 private:
   double real; // real part of the complex number
